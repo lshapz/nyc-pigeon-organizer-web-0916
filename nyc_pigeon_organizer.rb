@@ -1,4 +1,4 @@
-require "pry"
+require 'pry'
 
 pigeon_data = {
   :color => {
@@ -8,6 +8,7 @@ pigeon_data = {
     :brown => ["Queenie", "Alex"]
   },
   :gender => {
+  
     :male => ["Alex", "Theo", "Peter Jr.", "Andrew", "Lucky"],
     :female => ["Queenie", "Ms. K"]
   },
@@ -20,18 +21,49 @@ pigeon_data = {
 }
 
 def nyc_pigeon_organizer(data)
-  # write your code here!
-  pigeon_data = Hash.new
-  data.each do |category, trait_list|
-    trait_list.each do |trait, pigeon_list|
-      pigeon_list.each do |pigeon|
-        if !pigeon_data.keys.include?(pigeon) then pigeon_data[pigeon] = {} end
-        if !pigeon_data[pigeon].keys.include?(category) then pigeon_data[pigeon][category] = [] end
-        pigeon_data[pigeon][category] << trait.to_s
-      end
-    end
-  end
-  pigeon_data
+array = []  
+names = data.values.map {|attribute_hash| attribute_hash.values}.flatten.uniq
+hash = {}
+initial_structure = names.each_with_object({}) do |name, hash|
+  
+  hash[name] = {color: [], gender: [], lives: []}
 end
 
-nyc_pigeon_organizer(pigeon_data)
+      names.each do |pigeon|
+        data[:color].each do |color, corr_pigeon_list|
+        initial_structure[pigeon][:color] << color.to_s  if corr_pigeon_list.include?(pigeon) 
+        end 
+  
+        data[:lives].each do |lives, corr_pigeon_list|
+        initial_structure[pigeon][:lives] << lives.to_s  if corr_pigeon_list.include?(pigeon) 
+        end 
+    
+        data[:gender].each do |gender, corr_pigeon_list|
+        initial_structure[pigeon][:gender] << gender.to_s  if corr_pigeon_list.include?(pigeon) 
+        end 
+    end 
+    
+          
+          initial_structure
+       
+end 
+
+puts nyc_pigeon_organizer(pigeon_data)
+
+#
+#  # understanding the nested layers
+#  #   how to handle different data
+#  #   scope of variables
+#  #   writing down the thought process
+#  #     can make the code more clear
+#  #   naming the block variables
+#  #
+#  # A. Problem Solving
+#  #   rephrase the problem
+#  #   think about how we solve this problem without code
+#  #     think of an analogy
+#  #     how would this work in real life
+#  #
+#  # B. Translating this into code
+#  #   REJECT  information - just to get to core
+#  #   Coerce - think about the data structure that we want
